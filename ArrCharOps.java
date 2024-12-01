@@ -37,12 +37,12 @@ public class ArrCharOps {
      */
     public static char charAt(char[] arr, int index) {
         if (index < 0 || index >= arr.length) {
-
+            throw new IllegalArgumentException("Index out of bounds");
         }
-
         return arr[index];
     }
 
+    
     /** If the two arrays have the same value in every index, 
      *  returns true; Otherwise returns false.
      */
@@ -93,8 +93,11 @@ public class ArrCharOps {
      *  If no such character is found, returns -1.
      */
     public static int lastIndexOf(char[] arr, char ch) {
-        for (int i = arr.length -1 ; i >= 0; i++) {
-            if (arr[i]== ch) {
+        if (arr == null || arr.length == 0) {
+            return -1;
+        }
+        for (int i = arr.length - 1; i >= 0; i--) {
+            if (arr[i] == ch) {
                 return i;
             }
         }
@@ -176,26 +179,26 @@ public class ArrCharOps {
      *         return -2 if there is an error with the input.
      */
     /** Compares the two strings lexicographically. Assume that both strings are not empty. */
-public static int compareTo(String str1, String str2) {
   
-    int minLength = Math.min(str1.length(), str2.length());
+    public static int compareTo(String str1, String str2) {
+        str1 = str1.toLowerCase();
+        str2 = str2.toLowerCase();
 
-    for (int i = 0; i < minLength; i++) {
-        char char1 = str1.charAt(i);
-        char char2 = str2.charAt(i);
+        int minLength = Math.min(str1.length(), str2.length());
+        for (int i = 0; i < minLength; i++) {
+            char char1 = str1.charAt(i);
+            char char2 = str2.charAt(i);
 
-        if (char1 != char2) {
-            return char1 - char2 < 0 ? -1 : 1;
+            if (char1 != char2) {
+                return char1 - char2 < 0 ? -1 : 1;
+            }
         }
+
+        if (str1.length() < str2.length()) {
+            return -1;
+        } else if (str1.length() > str2.length()) {
+            return 1;
+        }
+        return 0;
     }
-
-    if (str1.length() < str2.length()) {
-        return -1; 
-    } else if (str1.length() > str2.length()) {
-        return 1; 
-    }
-
-    return 0; 
-}
-
 }
